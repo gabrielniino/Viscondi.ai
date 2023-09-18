@@ -8,8 +8,18 @@ POST http://localhost:3333/videos
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="file"; filename="Today.mp3"
-Content-Type: audio/mpeg
+Content-Disposition: form-data; name="file"; filename="exemple.mp3"
+Content-Type: exemple/mpeg
 
-< ./Today.mp3
+< ./exemple.mp3
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
+###
+
+# @name create-transcription
+POST http://localhost:3333/videos/aa10d530-0faa-40e7-800f-6120ae6c9ab6/transcription
+Content-Type: application/json
+
+{
+  "prompt": "ultra realista, rockstar, gta iv"
+}
