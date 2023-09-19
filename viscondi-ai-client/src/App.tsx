@@ -1,4 +1,5 @@
 import { Github, Wand2 } from 'lucide-react'
+import { PromptSelect } from './components/prompt-select'
 import { Button } from "./components/ui/button"
 import { Label } from './components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './components/ui/select'
@@ -8,7 +9,9 @@ import { Textarea } from './components/ui/textarea'
 import { VideoInputForm } from './components/video-input-form'
 
 export function App() {
-  
+  function handlePromptSelected(template: string) {
+    console.log(template)
+  }
 
   return (
     <div className='min-h-screen flex flex-col'>
@@ -60,15 +63,7 @@ export function App() {
           <form className='space-y-6'>
             <div className='space-y-2'>
               <Label>Prompt</Label>
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder='Selecione um prompt...' />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value='title'>Titulo do Youtube</SelectItem>
-                  <SelectItem value='description'>Descrição do Youtube</SelectItem>
-                </SelectContent>
-              </Select>
+              <PromptSelect onPromptSelected={handlePromptSelected} />
             </div>
             <div className='space-y-2'>
               <Label>Modelo</Label>
