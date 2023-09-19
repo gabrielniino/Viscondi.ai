@@ -17,9 +17,21 @@ Content-Type: exemple/mpeg
 ###
 
 # @name create-transcription
-POST http://localhost:3333/videos/aa10d530-0faa-40e7-800f-6120ae6c9ab6/transcription
+POST http://localhost:3333/videos/b7224ddf-d2e5-4695-8e3c-dbdcdb7a6896/transcription
 Content-Type: application/json
 
 {
   "prompt": "ultra realista, rockstar, gta iv"
+}
+
+###
+
+# @name generate-ai-completion
+POST http://localhost:3333/ai/complete
+Content-Type: application/json
+
+{
+  "videoId": "b7224ddf-d2e5-4695-8e3c-dbdcdb7a6896",
+  "temperature": 0.5,
+  "template": "Gere um resumo da transcrição do vídeo informada a seguir: '''{transcription}'''"
 }
