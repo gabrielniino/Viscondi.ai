@@ -1,6 +1,6 @@
-import { api } from "@/lib/axios";
 import { useEffect, useState } from "react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { api } from "@/lib/axios";
 
 interface Prompt {
     id: string
@@ -34,7 +34,7 @@ export function PromptSelect(props: PromptSelectProps) {
     return (
         <Select onValueChange={handlePromptSelected}>
             <SelectTrigger>
-                <SelectValue placeholder='Selecione um prompt...' />
+                <SelectValue placeholder="Selecione um prompt..." />
             </SelectTrigger>
             <SelectContent>
                 {prompts?.map(prompt => {
@@ -44,5 +44,5 @@ export function PromptSelect(props: PromptSelectProps) {
                 })}
             </SelectContent>
         </Select>
-    )
+    );
 }
