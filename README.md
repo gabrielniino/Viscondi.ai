@@ -5,12 +5,22 @@ Projeto de uma aplicação web que permite aos usuários fazerem upload de víde
 ## Tabela de Conteúdo
 
 - [Visão Geral](#visão-geral)
+- [Tecnologias](#tecnologias)
 - [Funcionalidades](#funcionalidades)
 - [Instalação](#instalação)
 
 ## Visão Geral
 
 O projeto é uma aplicação web que oferece aos criadores de conteúdo sugestões de titulos e descriçoes para videos de maneira inteligente, com a proposta de aprimorar o tempo, qualidade dos titulos e descrições e o SEO dos videos.
+
+## Tecnologias
+
+- NodeJS
+- TypesScript
+- Prisma
+- Tailwind
+- Shadcn UI
+- Radix UI
 
 ## Funcionalidades
 
