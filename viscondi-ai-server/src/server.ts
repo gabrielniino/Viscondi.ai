@@ -7,7 +7,7 @@ import { generateAiCompletionRoute } from "./routes/generate-ai-completion";
 
 const app = fastify()
 
-// Mudar a origin para a url do frontend
+// Mudar a origin para a url do frontend 
 app.register(fastifyCors, {
     origin: '*'
 })

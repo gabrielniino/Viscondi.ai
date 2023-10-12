@@ -126,9 +126,20 @@ export function VideoInputForm(props: VideoInputFormProps) {
             <label
                 htmlFor="video"
                 className="relative border flex rounded-md aspect-video cursor-pointer border-dashed text-sm flex-col gap-2 items-center justify-center text-muted-foreground hover:bg-primary/5"
+                style={{
+                    position: 'relative', // Para garantir que o vídeo seja posicionado em relação à label
+                    overflow: 'hidden', // Para cortar o vídeo se ele ultrapassar os limites da label
+                }}
             >
                 {previewURL ? (
-                    <video src={previewURL} controls={false} className="pointer-events-none absolute inset-0" />
+                    <video
+                        src={previewURL}
+                        controls={false}
+                        className="pointer-events-none absolute inset-0 w-full h-full"
+                        style={{
+                            objectFit: 'cover', // Para fazer com que o vídeo preencha todo o espaço da label
+                        }}
+                    />
                 ) : (
                     <>
                         <FileVideo className="w-4 h-4" />
@@ -136,6 +147,7 @@ export function VideoInputForm(props: VideoInputFormProps) {
                     </>
                 )}
             </label>
+
 
             <input type="file" id="video" accept="video/mp4" className="sr-only" onChange={handleFileSelected} />
 

@@ -11,8 +11,8 @@ import { useState } from "react";
 import { useCompletion } from 'ai/react'
 
 export function App() {
-  const [temperature, setTemperature] = useState(0.5)
-  const [videoId, setVideoId] = useState<string | null>(null)
+  const [temperature, setTemperature] = useState(0.5);
+  const [videoId, setVideoId] = useState<string | null>(null);
 
   const {
     input,
@@ -66,8 +66,8 @@ export function App() {
               readOnly
               value={completion}
             />
-          </div>
-
+            </div>
+            
           <p className="text-sm text-muted-foreground">
             Lembre-se: você pode utilizar a variável <code className="text-yellow-400">{`{transcription}`}</code> no seu prompt para adicionar o conteúdo da transcrição do vídeo selecionado.
           </p>
