@@ -18,7 +18,7 @@ const statusMessages = {
 }
 
 interface VideoInputFormProps {
-    onVideoUploaded: (id: string) => void
+    onVideoUploaded: (id: string, transcription: string) => void
 }
 
 export function VideoInputForm(props: VideoInputFormProps) {
@@ -104,13 +104,13 @@ export function VideoInputForm(props: VideoInputFormProps) {
 
         setStatus('generating')
 
-        await api.post(`/videos/${videoId}/transcription`, {
+        const transcription = await api.post(`/videos/${videoId}/transcription`, {
             prompt,
-        })
+        });
 
         setStatus('success')
 
-        props.onVideoUploaded(videoId)
+        props.onVideoUploaded(videoId, transcription.data.transcription);
     }
 
     const previewURL = useMemo(() => {
@@ -128,17 +128,13 @@ export function VideoInputForm(props: VideoInputFormProps) {
                 className="relative border flex rounded-md aspect-video cursor-pointer border-dashed text-sm flex-col gap-2 items-center justify-center text-muted-foreground hover:bg-primary/5"
                 style={{
                     position: 'relative', // Para garantir que o vídeo seja posicionado em relação à label
-                    overflow: 'hidden', // Para cortar o vídeo se ele ultrapassar os limites da label
                 }}
             >
                 {previewURL ? (
                     <video
                         src={previewURL}
                         controls={false}
-                        className="pointer-events-none absolute inset-0 w-full h-full"
-                        style={{
-                            objectFit: 'cover', // Para fazer com que o vídeo preencha todo o espaço da label
-                        }}
+                        className="pointer-events-none absolute inset-0 w-full h-full object-cover"
                     />
                 ) : (
                     <>
@@ -147,7 +143,6 @@ export function VideoInputForm(props: VideoInputFormProps) {
                     </>
                 )}
             </label>
-
 
             <input type="file" id="video" accept="video/mp4" className="sr-only" onChange={handleFileSelected} />
 

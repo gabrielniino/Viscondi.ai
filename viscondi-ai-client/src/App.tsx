@@ -8,11 +8,12 @@ import { Slider } from "./components/ui/slider";
 import { VideoInputForm } from "./components/video-input-form";
 import { PromptSelect } from "./components/prompt-select";
 import { useState } from "react";
-import { useCompletion } from 'ai/react'
+import { useCompletion } from 'ai/react';
 
 export function App() {
   const [temperature, setTemperature] = useState(0.5);
   const [videoId, setVideoId] = useState<string | null>(null);
+  const [transcription, setTranscription] = useState<string>("");
 
   const {
     input,
@@ -31,6 +32,11 @@ export function App() {
       'Content-Type': 'application/json',
     }
   })
+
+  const onVideoUploaded = (videoId: string, transcription: string) => {
+    setVideoId(videoId);
+    setTranscription(transcription);
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -53,28 +59,43 @@ export function App() {
 
       <main className="flex-1 p-6 flex gap-6">
         <div className="flex flex-col flex-1 gap-4">
-          <div className="grid grid-rows-2 gap-4 flex-1">
+          <div className="grid grid-rows-3 gap-4 flex-1">
+            <Textarea
+              className="resize-none p-4 leading-relaxed min-h-[160px]"
+              placeholder="Resultado da transcrição..."
+              readOnly
+              value={transcription}
+            />
             <Textarea
               className="resize-none p-4 leading-relaxed"
               placeholder="Inclua o prompt para a IA..."
               value={input}
               onChange={handleInputChange}
             />
+            {/* {
+              transcription && transcription?.length > 0 && (
+                <Textarea
+                  className="resize-none p-4 leading-relaxed"
+                  placeholder="Transcrição"
+                  value={transcription || ""}
+                />
+              )
+            } */}
             <Textarea
-              className="resize-none p-4 leading-relaxed"
+              className="resize-none p-4 leading-relaxed min-h-[160px]"
               placeholder="Resultado gerado pela IA..."
               readOnly
               value={completion}
             />
-            </div>
-            
+          </div>
+
           <p className="text-sm text-muted-foreground">
             Lembre-se: você pode utilizar a variável <code className="text-yellow-400">{`{transcription}`}</code> no seu prompt para adicionar o conteúdo da transcrição do vídeo selecionado.
           </p>
         </div>
 
         <aside className="w-80 space-y-6">
-          <VideoInputForm onVideoUploaded={setVideoId} />
+          <VideoInputForm onVideoUploaded={onVideoUploaded} />
 
           <Separator />
 
