@@ -1,14 +1,16 @@
-import { Github, Wand2 } from 'lucide-react'
+import { Github, Wand2 } from 'lucide-react';
 import { useState } from "react";
 import { useCompletion } from 'ai/react';
 import { Label } from '@radix-ui/react-label';
 import { Separator } from '@radix-ui/react-separator';
-// import { Slider } from '@radix-ui/react-slider';
 import { PromptSelect } from './prompt-select';
 import { Button } from '../../ui/button';
 import { Textarea } from '../../ui/textarea';
 import { VideoInputForm } from './video-input-form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { DialogDemo } from '../../ui/Dialog';
+import { DropdownMenuDemo } from '../../ui/DropdownMenu';
+
 
 export function HomePage() {
     const [temperature, setTemperature] = useState(0.5);
@@ -16,12 +18,7 @@ export function HomePage() {
     const [transcription, setTranscription] = useState<string>("");
 
     const {
-        input,
-        setInput,
-        handleInputChange,
-        handleSubmit,
-        completion,
-        isLoading,
+        input, setInput, handleInputChange, handleSubmit, completion, isLoading,
     } = useCompletion({
         api: 'http://localhost:3333/ai/complete',
         body: {
@@ -31,30 +28,18 @@ export function HomePage() {
         headers: {
             'Content-Type': 'application/json',
         }
-    })
+    });
 
     const onVideoUploaded = (videoId: string, transcription: string) => {
         setVideoId(videoId);
         setTranscription(transcription);
-    }
+    };
 
     return (
         <div className="min-h-screen flex flex-col">
             <div className="px-6 py-3 flex items-center justify-between border-b">
                 <h1 className="text-xl font-bold">Viscondi.ai</h1>
-
-                <div className="flex items-center gap-3">
-                    <span className="text-sm text-muted-foreground">
-                        Desenvolvido por Nino
-                    </span>
-
-                    <Separator orientation="vertical" className="h-6" />
-
-                    <Button variant="outline">
-                        <Github className="w-4 h-4 mr-2" />
-                        GitHub
-                    </Button>
-                </div>
+                <DropdownMenuDemo />
             </div>
 
             <main className="flex-1 p-6 flex gap-6">
@@ -64,29 +49,26 @@ export function HomePage() {
                             className="resize-none p-4 leading-relaxed min-h-[160px]"
                             placeholder="Resultado da transcrição..."
                             readOnly
-                            value={transcription}
-                        />
+                            value={transcription} />
                         {/* {
-                            transcription && transcription?.length > 0 && (
-                                <Textarea
-                                className="resize-none p-4 leading-relaxed"
-                                placeholder="Transcrição"
-                                value={transcription || ""}
-                                />
-                            )
-                            } */}
+                transcription && transcription?.length > 0 && (
+                    <Textarea
+                    className="resize-none p-4 leading-relaxed"
+                    placeholder="Transcrição"
+                    value={transcription || ""}
+                    />
+                )
+                } */}
                         <Textarea
                             className="resize-none p-4 leading-relaxed"
                             placeholder="Inclua o prompt para a IA..."
                             value={input}
-                            onChange={handleInputChange}
-                        />
+                            onChange={handleInputChange} />
                         <Textarea
                             className="resize-none p-4 leading-relaxed min-h-[160px]"
                             placeholder="Resultado gerado pela IA..."
                             readOnly
-                            value={completion}
-                        />
+                            value={completion} />
                     </div>
 
                     <p className="text-sm text-muted-foreground">
@@ -123,18 +105,18 @@ export function HomePage() {
                         <Separator />
 
                         {/* <div className="space-y-4">
-                            <Label>Temperatura</Label>
-                            <Slider
-                                min={0}
-                                max={1}
-                                step={0.1}
-                                value={[temperature]}
-                                onValueChange={value => setTemperature(value[0])}
-                            />
-                            <span className="block text-sm text-muted-foreground italic leading-relaxed">
-                                Valores mais altos tendem a deixar o resultado mais criativo e com possíveis erros.
-                            </span>
-                        </div> */}
+                    <Label>Temperatura</Label>
+                    <Slider
+                        min={0}
+                        max={1}
+                        step={0.1}
+                        value={[temperature]}
+                        onValueChange={value => setTemperature(value[0])}
+                    />
+                    <span className="block text-sm text-muted-foreground italic leading-relaxed">
+                        Valores mais altos tendem a deixar o resultado mais criativo e com possíveis erros.
+                    </span>
+                </div> */}
 
                         <Separator />
 
@@ -145,6 +127,23 @@ export function HomePage() {
                     </form>
                 </aside>
             </main>
+            {/* <div className="px-6 py-3 flex items-center justify-between border-b-top">
+                <h1 className="text-xl font-bold">Viscondi.ai</h1>
+
+                <div className="flex items-center gap-3">
+                    <span className="text-sm text-muted-foreground">
+                        Desenvolvido por Nino
+                    </span>
+
+                    <Separator orientation="vertical" className="h-6" />
+
+                    <Button variant="outline">
+                        <Github className="w-4 h-4 mr-2" />
+                        GitHub
+                    </Button>
+
+                </div>
+            </div> */}
         </div>
-    )
+    );
 }
