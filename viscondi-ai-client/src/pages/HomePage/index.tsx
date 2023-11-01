@@ -1,19 +1,18 @@
-import { Github, Wand2 } from 'lucide-react';
+import { Wand2 } from 'lucide-react';
 import { useState } from "react";
 import { useCompletion } from 'ai/react';
 import { Label } from '@radix-ui/react-label';
 import { Separator } from '@radix-ui/react-separator';
 import { PromptSelect } from './prompt-select';
-import { Button } from '../../ui/button';
-import { Textarea } from '../../ui/textarea';
 import { VideoInputForm } from './video-input-form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { DialogDemo } from '../../ui/Dialog';
-import { DropdownMenuDemo } from '../../ui/DropdownMenu';
+import { DropdownMenuDemo } from '@/components/ui/DropdownMenu';
+import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
 
 
 export function HomePage() {
-    const [temperature, setTemperature] = useState(0.5);
+    const [temperature] = useState(0.5);
     const [videoId, setVideoId] = useState<string | null>(null);
     const [transcription, setTranscription] = useState<string>("");
 

@@ -1,12 +1,12 @@
 import { FileVideo, Upload } from "lucide-react";
-import { Separator } from "../../ui/separator";
-import { Label } from "../../ui/label";
-import { Textarea } from "../../ui/textarea";
-import { Button } from "../../ui/button";
 import { ChangeEvent, FormEvent, useMemo, useRef, useState } from "react";
 import { getFFmpeg } from "@/lib/ffmpeg";
 import { fetchFile } from "@ffmpeg/util";
 import { api } from "@/lib/axios";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@radix-ui/react-label";
 
 type Status = 'waiting' | 'converting' | 'uploading' | 'generating' | 'success'
 

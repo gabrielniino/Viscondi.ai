@@ -4,7 +4,7 @@ export function AuthenticationPage() {
     return (
         <>
             <div className="container relative flex flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0 h-screen">
-                <a href="/" className="absolute right-4 top-4 md:right-8 md:top-8">
+                <a href="login" className="absolute right-4 top-4 md:right-8 md:top-8">
                     Login
                 </a>
                 <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">

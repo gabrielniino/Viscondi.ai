@@ -4,8 +4,13 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL")
+  url      = env("file:../dev.db")
 }
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
 
 model Video {
   id            String   @id @default(uuid())
@@ -13,10 +18,24 @@ model Video {
   path          String
   transcription String?
   createdAt     DateTime @default(now())
+
+  // @@map("video")
 }
 
 model Prompt {
   id       String @id @default(uuid())
   title    String
   template String
+
+  // @@map("prompt")
 }
+
+// model User {
+//   id        String   @id @default(uuid())
+//   name      String
+//   email     String   @unique
+//   password  String
+//   createdAt DateTime @default(now())
+
+//   @@map("user")
+// }

@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from "@/components/ui/input"
+import { Link } from 'react-router-dom';
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
-export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
+export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     async function onSubmit(event: React.SyntheticEvent) {
@@ -62,7 +63,7 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
                                 />
                             </svg>
                         )}
-                        Entrar
+                        <Link to="/home">Entrar</Link>
                     </Button>
                 </div>
             </form>
