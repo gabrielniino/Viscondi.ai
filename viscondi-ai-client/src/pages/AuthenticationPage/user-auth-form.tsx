@@ -8,10 +8,46 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [name, setName] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+
+    const [registrationStatus, setRegistrationStatus] = useState<string | null>(null);
 
     async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault();
+
+        // Verifica se os campos de email e senha estão preenchidos
+        if (!email || !password) {
+            setRegistrationStatus('Os campos de email e senha são obrigatórios.');
+            return;
+        }
         setIsLoading(true);
+
+        // Prepare os dados do usuário para enviar ao servidor
+        const userData = { name, email, password };
+
+        try {
+            const response = await fetch('http://localhost:3333/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userData),
+            });
+
+            if (response.ok) {
+                setRegistrationStatus('Usuário registrado com sucesso');
+            } else {
+                const data = await response.json();
+                setRegistrationStatus(data.message || 'Erro no registro');
+            }
+        } catch (error) {
+            console.error(error);
+            setRegistrationStatus('Erro no servidor');
+        } finally {
+            setIsLoading(false);
+        };
 
         setTimeout(() => {
             setIsLoading(false);
@@ -32,6 +68,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                             autoComplete="email"
                             autoCorrect="off"
                             disabled={isLoading}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <div className="grid gap-1">
@@ -44,6 +82,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                             autoComplete="password"
                             autoCorrect="off"
                             disabled={isLoading}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
                     <Button disabled={isLoading}>
@@ -63,10 +103,12 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                                 />
                             </svg>
                         )}
-                        <Link to="/home">Entrar</Link>
+                        <Link to="/login">Registrar</Link>
                     </Button>
                 </div>
             </form>
+            {/* Mensagem de "Usuario registrado com sucesso" */}
+            {registrationStatus && <p>{registrationStatus}</p>}
         </div>
     );
 }

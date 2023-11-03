@@ -24,8 +24,10 @@
     "@fastify/multipart": "^7.7.3",
     "@prisma/client": "5.3.1",
     "ai": "^2.2.13",
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "fastify": "^4.23.2",
+    "jsonwebtoken": "^9.0.2",
     "openai": "^4.8.0",
     "zod": "^3.22.2"
   }

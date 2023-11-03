@@ -35,3 +35,28 @@ Content-Type: application/json
   "temperature": 0.5,
   "prompt": "Gere um resumo da transcrição do vídeo informada a seguir: '''{transcription}'''"
 }
+
+###
+
+# @name create-user
+
+POST http://localhost:3333/register
+Content-Type: application/json
+
+{
+  "name": "Mateus Campaner",
+  "email": "mateus.campaner@edu.unifil.br",
+  "password": "senha321"
+}
+
+###
+
+# @name login-user
+
+POST http://localhost:3333/login
+Content-Type: application/json
+
+{
+  "email": "mateus.campaner@edu.unifil.br",
+  "password": "senha321"
+}

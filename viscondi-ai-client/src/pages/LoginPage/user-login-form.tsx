@@ -8,10 +8,38 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+    const [error, setError] = useState<string | null>(null);
 
     async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault();
         setIsLoading(true);
+
+        try {
+            // Fazer a solicitação de login
+            const response = await fetch('http://localhost:3333/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+
+            if (response.ok) {
+                // Redirecionar o usuário para a página "home" após o login bem-sucedido
+                window.location.href = '/home';
+            } else {
+                // Exibir mensagem de erro
+                const data = await response.json();
+                setError(data.message || 'Erro no login');
+            }
+        } catch (error) {
+            console.error(error);
+            setError('Erro no servidor');
+        } finally {
+            setIsLoading(false);
+        }
 
         setTimeout(() => {
             setIsLoading(false);
@@ -32,6 +60,8 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
                             autoComplete="email"
                             autoCorrect="off"
                             disabled={isLoading}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
                     <div className="grid gap-1">
@@ -44,6 +74,8 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
                             autoComplete="password"
                             autoCorrect="off"
                             disabled={isLoading}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
                     <Button disabled={isLoading}>
@@ -67,6 +99,8 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
                     </Button>
                 </div>
             </form>
+            {/* Mensagem de erro */}
+            {error && <p>{error}</p>}
         </div>
     );
 }
