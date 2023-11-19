@@ -6,6 +6,7 @@ import { createTranscriptionRoute } from "./routes/create-transciption";
 import { generateAiCompletionRoute } from "./routes/generate-ai-completion";
 import { createUser } from "./routes/register";
 import { loginUser } from "./routes/login";
+import { editUser } from "./routes/edit-user";
 
 const app = fastify()
 
@@ -20,6 +21,7 @@ app.register(createTranscriptionRoute)
 app.register(generateAiCompletionRoute)
 app.register(createUser)
 app.register(loginUser)
+app.register(editUser)
 
 app.listen({
     port: 3333

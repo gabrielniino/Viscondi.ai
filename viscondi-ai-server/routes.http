@@ -60,3 +60,15 @@ Content-Type: application/json
   "email": "mateus.campaner@edu.unifil.br",
   "password": "senha321"
 }
+
+###
+
+# @name edit-user
+
+PUT http://localhost:3333/edit-profile/ecc6c782-f321-469e-8cca-4828ea626887
+Content-Type: application/json
+
+{
+  "name": "Mateus Campaner",
+  "password": "12345678"
+}

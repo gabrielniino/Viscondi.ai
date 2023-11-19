@@ -27,8 +27,10 @@ model Video {
 
 model History {
   id       String @id @default(uuid())
-  video    Video  @relation(fields: [video_Id], references: [id])
   video_Id String
+  video    Video  @relation(fields: [video_Id], references: [id])
+  user     User   @relation(fields: [user_Id], references: [id])
+  user_Id   String
 }
 
 model Prompt {
@@ -40,12 +42,13 @@ model Prompt {
 }
 
 model User {
-  id         String   @id @default(uuid())
+  id         String    @id @default(uuid())
   name       String
-  email      String   @unique
+  email      String    @unique
   password   String
-  created_at DateTime @default(now()) // Campo que representa o momento de criação
-  update_at  DateTime @updatedAt
+  created_at DateTime  @default(now()) // Campo que representa o momento de criação
+  update_at  DateTime  @updatedAt
+  History    History[]
 
   @@map("users")
 }

@@ -10,7 +10,6 @@ import { DropdownMenuDemo } from '@/components/ui/DropdownMenu';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 
-
 export function HomePage() {
     const [temperature] = useState(0.5);
     const [videoId, setVideoId] = useState<string | null>(null);

@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button"
+import { useState } from 'react';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,8 +15,14 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/DropdownMenu/dropdown-menu"
 import { Github, HelpCircle } from "lucide-react"
+import { SheetDemo } from "../Sheet";
 
 export function DropdownMenuDemo() {
+    const [showSheet, setShowSheet] = useState(false);
+
+    const handleEditarPerfilClick = () => {
+        setShowSheet(true);
+      };
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -25,7 +32,7 @@ export function DropdownMenuDemo() {
                 <DropdownMenuLabel>Meu Perfil</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onClick={handleEditarPerfilClick}>
                         Editar Perfil
                         <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                     </DropdownMenuItem>
@@ -58,6 +65,7 @@ export function DropdownMenuDemo() {
                     <DropdownMenuShortcut>⇧⌘S</DropdownMenuShortcut>
                 </DropdownMenuItem>
             </DropdownMenuContent>
+            {showSheet && <SheetDemo />}
         </DropdownMenu>
     )
 }
