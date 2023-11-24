@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button"
-import { useState } from 'react';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -15,14 +14,13 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/DropdownMenu/dropdown-menu"
 import { Github, HelpCircle } from "lucide-react"
-import { SheetDemo } from "../Sheet";
 
-export function DropdownMenuDemo() {
-    const [showSheet, setShowSheet] = useState(false);
+type DropdownMenuComponentProps = {
+    onEditProfile: () => void;
+    onLogout: () => void;
+}
 
-    const handleEditarPerfilClick = () => {
-        setShowSheet(true);
-      };
+export function DropdownMenuComponent(props: DropdownMenuComponentProps) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -32,7 +30,7 @@ export function DropdownMenuDemo() {
                 <DropdownMenuLabel>Meu Perfil</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuGroup>
-                    <DropdownMenuItem onClick={handleEditarPerfilClick}>
+                    <DropdownMenuItem onClick={props.onEditProfile}>
                         Editar Perfil
                         <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                     </DropdownMenuItem>
@@ -42,30 +40,15 @@ export function DropdownMenuDemo() {
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                {/* <DropdownMenuGroup>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>Convidar Amigos</DropdownMenuSubTrigger>
-            <DropdownMenuPortal>
-              <DropdownMenuSubContent>
-                <DropdownMenuItem>Instagram</DropdownMenuItem>
-                <DropdownMenuItem>Whatsapp</DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Mais...</DropdownMenuItem>
-              </DropdownMenuSubContent>
-            </DropdownMenuPortal>
-          </DropdownMenuSub>
-        </DropdownMenuGroup>
-        <DropdownMenuSeparator /> */}
                 <DropdownMenuItem><Github className="w-4 h-4 mr-2" />GitHub</DropdownMenuItem>
                 <DropdownMenuItem><HelpCircle className="w-4 h-4 mr-2" /> Suporte</DropdownMenuItem>
                 <DropdownMenuItem disabled>API</DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem>
+                <DropdownMenuItem onClick={props.onLogout}>
                     Sair
                     <DropdownMenuShortcut>⇧⌘S</DropdownMenuShortcut>
                 </DropdownMenuItem>
             </DropdownMenuContent>
-            {showSheet && <SheetDemo />}
         </DropdownMenu>
     )
 }

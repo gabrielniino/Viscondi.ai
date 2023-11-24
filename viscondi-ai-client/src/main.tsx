@@ -2,45 +2,36 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
 import {
-  createBrowserRouter,
-  RouterProvider,
+  BrowserRouter,
+  Routes,
+  Route,
 } from "react-router-dom";
+import { AuthProvider } from './hooks/useAuth';
 import { AuthenticationPage } from './pages/AuthenticationPage/AuthenticationPage';
 import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
 
-
-// ReactDOM.createRoot(document.getElementById('root')!).render(
-//   <React.StrictMode>
-//     <BrowserRouter>
-//       {/* <AuthenticationPage /> */}
-//       {/* <LoginPage/> */}
-//       <HomePage />
-//     </BrowserRouter>
-//   </React.StrictMode>,
-// )
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <LoginPage />,
-  },
-  {
-    path: "authentication",
-    element: <AuthenticationPage />,
-  },
-  {
-    path: "login",
-    element: <LoginPage />,
-  },
-  {
-    path: "home",
-    element: <HomePage />,
-  },
-]);
+// const router = createBrowserRouter(
+//   createRoutesFromElements(
+//     <Route path="/" element={<LoginPage />}>
+//       <Route path="login" element={<LoginPage />} />
+//       <Route path="cadastro" element={<AuthenticationPage />} />
+//       <Route path="home" element={<HomePage />} />
+//     </Route>
+//   )
+// );
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="authentication" element={<AuthenticationPage />} />
+          <Route path="home" element={<HomePage />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );

@@ -6,9 +6,9 @@ import { Separator } from '@radix-ui/react-separator';
 import { PromptSelect } from './prompt-select';
 import { VideoInputForm } from './video-input-form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { DropdownMenuDemo } from '@/components/ui/DropdownMenu';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { Header } from '@/components/ui/Header';
 
 export function HomePage() {
     const [temperature] = useState(0.5);
@@ -35,10 +35,7 @@ export function HomePage() {
 
     return (
         <div className="min-h-screen flex flex-col">
-            <div className="px-6 py-3 flex items-center justify-between border-b">
-                <h1 className="text-xl font-bold">Viscondi.ai</h1>
-                <DropdownMenuDemo />
-            </div>
+            <Header />
 
             <main className="flex-1 p-6 flex gap-6">
                 <div className="flex flex-col flex-1 gap-4">

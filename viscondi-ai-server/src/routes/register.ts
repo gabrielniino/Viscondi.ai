@@ -22,7 +22,7 @@ export async function createUser(app: FastifyInstance) {
             // Hash da senha
             const hashedPassword = await bcrypt.hash(password, 10);
 
-            // Crie o usuário no banco de dados
+            // Criar o usuário no banco de dados
             const newUser = await prisma.user.create({
                 data: {
                     name,
@@ -31,7 +31,9 @@ export async function createUser(app: FastifyInstance) {
                 },
             });
 
-            reply.code(201).send({ message: 'Usuário cadastrado com sucesso' });
+            const userId = newUser.id;
+
+            reply.code(201).send({ message: 'Usuário cadastrado com sucesso', userId: userId });
         } catch (error) {
             console.error(error);
             reply.code(500).send({ message: 'Erro no servidor' });

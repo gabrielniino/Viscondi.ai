@@ -1,12 +1,13 @@
 import { UserAuthForm } from "./user-auth-form";
+import { Link } from "react-router-dom";
 
 export function AuthenticationPage() {
     return (
         <>
             <div className="container relative flex flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0 h-screen">
-                <a href="login" className="absolute right-4 top-4 md:right-8 md:top-8">
+                <Link to="/login" className="absolute right-4 top-4 md:right-8 md:top-8">
                     Login
-                </a>
+                </Link>
                 <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
                     <div className="absolute inset-0 bg-zinc-900" />
                     <div className="relative z-20 flex items-center text-lg font-medium">

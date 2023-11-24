@@ -7,7 +7,8 @@ interface EditUserRequestParams {
 }
 
 export async function editUser(app: FastifyInstance) {
-    app.put<{ Params: EditUserRequestParams }>('/edit-profile/:userId', async (request: FastifyRequest<{ Params: EditUserRequestParams }>, reply: FastifyReply) => {        try {
+    app.put<{ Params: EditUserRequestParams }>('/edit-profile/:userId', async (request: FastifyRequest<{ Params: EditUserRequestParams }>, reply: FastifyReply) => {
+        try {
             const userId = request.params.userId;
             const { name, password } = request.body as { name?: string, password?: string };
 

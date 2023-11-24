@@ -44,9 +44,9 @@ POST http://localhost:3333/register
 Content-Type: application/json
 
 {
-  "name": "Mateus Campaner",
-  "email": "mateus.campaner@edu.unifil.br",
-  "password": "senha321"
+  "name": "Natália Pereira",
+  "email": "nath.licha@edu.unifil.br",
+  "password": "nath123"
 }
 
 ###
@@ -65,10 +65,10 @@ Content-Type: application/json
 
 # @name edit-user
 
-PUT http://localhost:3333/edit-profile/ecc6c782-f321-469e-8cca-4828ea626887
+PUT http://localhost:3333/edit-profile/8a60cc9d-5c99-43a0-bdaf-8fe789b9cdc8
 Content-Type: application/json
 
 {
-  "name": "Mateus Campaner",
-  "password": "12345678"
+  "name": "Gabriel Gonçalves Pereira",
+  "password": "Nino9172@"
 }

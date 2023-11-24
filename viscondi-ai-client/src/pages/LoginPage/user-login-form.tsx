@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from "@/components/ui/input"
+import { useAuth } from '@/hooks/useAuth';
 import { Link } from 'react-router-dom';
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
@@ -11,39 +12,40 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [error, setError] = useState<string | null>(null);
+    const { login } = useAuth();
 
     async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault();
         setIsLoading(true);
 
-        try {
-            // Fazer a solicitação de login
-            const response = await fetch('http://localhost:3333/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
+        // Fazer a solicitação de login
+        await fetch('http://localhost:3333/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        })
+        .then((response) => {
+            console.log(response);
+            return response.json();
+        })
+        .then((data) => {
+            login({
+                isAuthenticated: true,
+                token: data.token,
+                id: data.userId,
             });
-
-            if (response.ok) {
-                // Redirecionar o usuário para a página "home" após o login bem-sucedido
-                window.location.href = '/home';
-            } else {
-                // Exibir mensagem de erro
-                const data = await response.json();
-                setError(data.message || 'Erro no login');
-            }
-        } catch (error) {
+            console.log(data);
+        })
+        .catch((error) => {
             console.error(error);
             setError('Erro no servidor');
-        } finally {
-            setIsLoading(false);
-        }
+        });
 
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
+        // Exibir mensagem de erro
+        // const data = await response.json();
+        // setError(data.message || 'Erro no login');
     }
 
     return (
