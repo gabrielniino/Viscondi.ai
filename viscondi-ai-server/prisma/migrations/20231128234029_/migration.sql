@@ -14,6 +14,7 @@ CREATE TABLE "videos" (
 CREATE TABLE "History" (
     "id" TEXT NOT NULL,
     "video_Id" TEXT NOT NULL,
+    "user_Id" TEXT NOT NULL,
 
     CONSTRAINT "History_pkey" PRIMARY KEY ("id")
 );
@@ -44,3 +45,6 @@ CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- AddForeignKey
 ALTER TABLE "History" ADD CONSTRAINT "History_video_Id_fkey" FOREIGN KEY ("video_Id") REFERENCES "videos"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "History" ADD CONSTRAINT "History_user_Id_fkey" FOREIGN KEY ("user_Id") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
