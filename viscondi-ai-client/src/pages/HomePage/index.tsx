@@ -9,8 +9,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Header } from '@/components/ui/Header';
+import { useAuth } from "@/hooks/useAuth";
 
 export function HomePage() {
+    const { user } = useAuth();
     const [temperature] = useState(0.5);
     const [videoId, setVideoId] = useState<string | null>(null);
     const [transcription, setTranscription] = useState<string>("");
@@ -72,7 +74,8 @@ export function HomePage() {
                 </div>
 
                 <aside className="w-80 space-y-6">
-                    <VideoInputForm onVideoUploaded={onVideoUploaded} />
+                    {/* <VideoInputForm onVideoUploaded={onVideoUploaded} /> */}
+                    <VideoInputForm user={user} onVideoUploaded={onVideoUploaded} />
 
                     <Separator />
 

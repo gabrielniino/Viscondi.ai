@@ -1,7 +1,7 @@
 import { UserLoginForm } from "./user-login-form";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "@/hooks/useAuth";
 import { useEffect } from "react";
 
 export function LoginPage() {
@@ -9,7 +9,7 @@ export function LoginPage() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(user.isAuthenticated) {
+        if (user.isAuthenticated) {
             navigate("/home", { replace: true });
         }
     }, []);

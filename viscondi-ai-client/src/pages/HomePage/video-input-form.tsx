@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@radix-ui/react-label";
 
+
 type Status = 'waiting' | 'converting' | 'uploading' | 'generating' | 'success'
 
 const statusMessages = {
@@ -18,7 +19,8 @@ const statusMessages = {
 }
 
 interface VideoInputFormProps {
-    onVideoUploaded: (id: string, transcription: string) => void
+    user: any;
+    onVideoUploaded: (id: string, transcription: string) => void,
 }
 
 export function VideoInputForm(props: VideoInputFormProps) {
@@ -87,18 +89,25 @@ export function VideoInputForm(props: VideoInputFormProps) {
             return
         }
 
+
         // converter o video em áudio
         setStatus('converting')
 
         const audioFile = await convertVideoToAudio(videoFile)
 
-        const data = new FormData()
+        const config = {
+            headers: {
+                Authorization: `Bearer ${props.user.token}`,
+            },
+        };
 
+        const data = new FormData()
         data.append('file', audioFile)
 
         setStatus('uploading')
 
-        const response = await api.post('/videos', data)
+
+        const response = await api.post('/videos', data, config)
 
         const videoId = response.data.video.id
 

@@ -5,12 +5,8 @@ import {
     DropdownMenuGroup,
     DropdownMenuItem,
     DropdownMenuLabel,
-    DropdownMenuPortal,
     DropdownMenuSeparator,
     DropdownMenuShortcut,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
     DropdownMenuTrigger,
 } from "@/components/ui/DropdownMenu/dropdown-menu"
 import { Github, HelpCircle } from "lucide-react"
@@ -18,6 +14,8 @@ import { Github, HelpCircle } from "lucide-react"
 type DropdownMenuComponentProps = {
     onEditProfile: () => void;
     onLogout: () => void;
+    onHistory: () => void;
+
 }
 
 export function DropdownMenuComponent(props: DropdownMenuComponentProps) {
@@ -34,7 +32,7 @@ export function DropdownMenuComponent(props: DropdownMenuComponentProps) {
                         Editar Perfil
                         <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>
+                    <DropdownMenuItem onClick={props.onHistory}>
                         Histórico
                         <DropdownMenuShortcut>⌘H</DropdownMenuShortcut>
                     </DropdownMenuItem>

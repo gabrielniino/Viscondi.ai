@@ -13,8 +13,11 @@
     "seed": "tsx prisma/seed.ts"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^20.6.2",
     "dotenv": "^16.3.1",
+    "fastify-jwt": "^4.2.0",
     "prisma": "^5.3.1",
     "tsx": "^3.12.10",
     "typescript": "^5.2.2"

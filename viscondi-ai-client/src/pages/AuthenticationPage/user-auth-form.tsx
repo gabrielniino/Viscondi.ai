@@ -22,6 +22,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             setRegistrationStatus('Os campos de email e senha são obrigatórios.');
             return;
         }
+        setName('')
         setIsLoading(true);
 
         // Prepare os dados do usuário para enviar ao servidor
