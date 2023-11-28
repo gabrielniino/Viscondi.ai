@@ -50,6 +50,7 @@ export function SheetComponentHistory(props: HistorySheetProps) {
     };
 
     return (
+
         <Sheet open={props.isOpen} onOpenChange={handleSheetClose}>
             <SheetContent>
                 <SheetHeader>

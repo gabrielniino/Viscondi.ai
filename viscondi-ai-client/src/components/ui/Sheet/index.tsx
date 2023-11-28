@@ -10,7 +10,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/Sheet/sheet";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../../hooks/useAuth";
 
 type SheetComponentProps = {
@@ -19,15 +19,22 @@ type SheetComponentProps = {
 };
 
 export function SheetComponent(props: SheetComponentProps) {
+  const { user } = useAuth();
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+  const [token, setToken] = useState("");
+
+  // Utiliza o useEffect para atualizar o token quando o usuário muda
+  useEffect(() => {
+    if (user) {
+      setToken(user.token);
+    }
+  }, [user]);
 
   const handleSaveChanges = async () => {
-
-    const { user } = useAuth();
-    const token = user.getToken();
-
     try {
+      console.log(`token: ${token}`);
+
       const response = await fetch("http://localhost:3333/edit-profile/", {
         method: "PUT",
         headers: {

@@ -27,7 +27,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
         // Prepare os dados do usuário para enviar ao servidor
         const userData = { name, email, password };
-
+        
         try {
             const response = await fetch('http://localhost:3333/register', {
                 method: 'POST',
@@ -42,6 +42,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             } else {
                 const data = await response.json();
                 setRegistrationStatus(data.message || 'Erro no registro');
+                console.log(`data.message: ${data.message}`)
             }
         } catch (error) {
             console.error(error);
