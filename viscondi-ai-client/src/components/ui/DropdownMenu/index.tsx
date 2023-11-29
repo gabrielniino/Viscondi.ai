@@ -19,6 +19,9 @@ type DropdownMenuComponentProps = {
 }
 
 export function DropdownMenuComponent(props: DropdownMenuComponentProps) {
+    const openGitHubRepo = () => {
+        window.open("https://github.com/gabrielniino/Viscondi.ai", "_blank");
+      }
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -30,21 +33,18 @@ export function DropdownMenuComponent(props: DropdownMenuComponentProps) {
                 <DropdownMenuGroup>
                     <DropdownMenuItem onClick={props.onEditProfile}>
                         Editar Perfil
-                        <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={props.onHistory}>
                         Histórico
-                        <DropdownMenuShortcut>⌘H</DropdownMenuShortcut>
                     </DropdownMenuItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem><Github className="w-4 h-4 mr-2" />GitHub</DropdownMenuItem>
-                <DropdownMenuItem><HelpCircle className="w-4 h-4 mr-2" /> Suporte</DropdownMenuItem>
+                <DropdownMenuItem onClick={openGitHubRepo}><Github className="w-4 h-4 mr-2" />GitHub</DropdownMenuItem>
+                {/* <DropdownMenuItem><HelpCircle className="w-4 h-4 mr-2" /> Suporte</DropdownMenuItem> */}
                 <DropdownMenuItem disabled>API</DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={props.onLogout}>
                     Sair
-                    <DropdownMenuShortcut>⇧⌘S</DropdownMenuShortcut>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
