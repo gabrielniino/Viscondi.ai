@@ -10,6 +10,7 @@ import { AuthProvider } from './hooks/useAuth';
 import { AuthenticationPage } from './pages/AuthenticationPage/AuthenticationPage';
 import { HomePage } from './pages/HomePage';
 import { LoginPage } from './pages/LoginPage';
+import { HistoryPage } from './pages/HistoryPage/HistoryPage';
 
 // const router = createBrowserRouter(
 //   createRoutesFromElements(
@@ -30,6 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="login" element={<LoginPage />} />
           <Route path="authentication" element={<AuthenticationPage />} />
           <Route path="home" element={<HomePage />} />
+          <Route path="history" element={<HistoryPage />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

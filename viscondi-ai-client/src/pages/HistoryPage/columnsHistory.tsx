@@ -28,8 +28,8 @@ export const columns: ColumnDef<HistoryUserVideo>[] = [
         accessorKey: "video.path",
         header: "Video Path",
     },
-    // {
-    //     accessorKey: "video.transcription",
-    //     header: "Video Transcription",
-    // },
+    {
+        accessorKey: "video.transcription",
+        header: "Video Transcription",
+    },
 ];

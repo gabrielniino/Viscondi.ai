@@ -3,12 +3,13 @@ import { SheetComponent } from "@/components/ui/Sheet";
 
 import { useAuth } from "@/hooks/useAuth";
 import { useState } from "react";
-import { SheetComponentHistory } from '../../../pages/HystoryPage/historyPage';
+import { useNavigate } from 'react-router-dom';
+
 
 
 export function Header() {
+    const navigate = useNavigate();
     const [isSheetOpen, setSheetOpen] = useState(false);
-    const [isSheetHistoryOpen, setSheetHistoryOpen] = useState(false);
 
     const { logout } = useAuth();
 
@@ -16,12 +17,6 @@ export function Header() {
     const onEditProfile = () => {
         setSheetOpen(true);
     }
-
-
-    const onHistory = () => {
-        setSheetHistoryOpen(true)
-    }
-
 
     const onSheetOpenChange = (open: boolean) => {
         setSheetOpen(open);
@@ -31,8 +26,9 @@ export function Header() {
         logout();
     }
 
-    const onSheetOpenChangeHistory = (open: boolean) => {
-        setSheetHistoryOpen(open);
+    const onHistory = () => {
+
+        navigate('/history');
     }
 
 
@@ -41,7 +37,6 @@ export function Header() {
             <h1 className="text-xl font-bold">Viscondi.ai</h1>
             <DropdownMenuComponent onEditProfile={onEditProfile} onLogout={onLogout} onHistory={onHistory} />
             <SheetComponent isOpen={isSheetOpen} onSheetOpenChange={onSheetOpenChange} />
-            <SheetComponentHistory isOpen={isSheetHistoryOpen} onSheetOpenChange={onSheetOpenChangeHistory} />
         </div>
     );
 }
