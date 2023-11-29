@@ -22,14 +22,14 @@ export const columns: ColumnDef<HistoryUserVideo>[] = [
     // },
     {
         accessorKey: "video.name",
-        header: "Video Name",
+        header: "Nome do Video",
     },
     {
         accessorKey: "video.path",
-        header: "Video Path",
+        header: "Caminho do arquivo",
     },
     {
         accessorKey: "video.transcription",
-        header: "Video Transcription",
+        header: "Trascricão do vídeo",
     },
 ];

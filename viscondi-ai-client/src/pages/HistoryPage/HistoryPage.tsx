@@ -4,6 +4,8 @@ import { api } from "@/lib/axios";
 import { DataTable } from './data-table-history'; // Mantido
 import { columns, HistoryUserVideo } from './columnsHistory'; // Mantido
 import { Header } from '../../components/ui/Header';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 export function HistoryPage() {
     const { user } = useAuth();
@@ -43,6 +45,12 @@ export function HistoryPage() {
     return (
         <>
             <Header />
+
+            <Button variant="outline" style={{ position: 'absolute', top: 12, right: 100 }}>
+                <Link to="/home">
+                    <button>Voltar</button>
+                </Link>
+            </Button>
 
             {loading ? (
                 <p>Loading...</p>
