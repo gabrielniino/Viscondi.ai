@@ -4,6 +4,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from "@/components/ui/input"
 import { useAuth } from '@/hooks/useAuth';
 import { Link } from 'react-router-dom';
+import { Message } from '@/components/Message';
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
@@ -17,36 +18,45 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
     async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault();
         setIsLoading(true);
-
-        // Fazer a solicitação de login
-        await fetch('http://localhost:3333/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, password }),
-        })
-            .then((response) => {
-                console.log(response);
-                return response.json();
-            })
-            .then((data) => {
+    
+        try {
+            const response = await fetch('http://localhost:3333/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ email, password }),
+            });
+    
+            if (!response.ok) {
+                throw new Error('Credenciais inválidas');
+            }
+    
+            const data = await response.json();
+    
+            if (data.token) {
+                // Se a resposta contém um token, o login foi bem-sucedido
                 login({
                     isAuthenticated: true,
                     token: data.token,
                     id: data.userId,
                 });
-                console.log(data);
-            })
-            .catch((error) => {
-                console.error(error);
-                setError('Erro no servidor');
-            });
-
-        // Exibir mensagem de erro
-        // const data = await response.json();
-        // setError(data.message || 'Erro no login');
+                // Redirecione para a página "/home" aqui
+                console.log('Login bem-sucedido!');
+            } else {
+                throw new Error('Token não recebido do servidor');
+            }
+        } catch (error) {
+            console.error(error);
+            setError('Credenciais inválidas');
+        } finally {
+            setIsLoading(false);
+        }
     }
+
+    const handleCloseError = () => {
+        setError(null);
+      };
 
     return (
         <div className={`grid gap-6 ${className}`} {...props}>
@@ -102,7 +112,7 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
                 </div>
             </form>
             {/* Mensagem de erro */}
-            {error && <p>{error}</p>}
+            {error && <Message message={error} onClose={handleCloseError} type='error'/>}
         </div>
     );
 }

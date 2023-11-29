@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from "@/components/ui/input"
 import { Link } from 'react-router-dom';
+import { Message } from '@/components/Message';
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
@@ -13,6 +14,18 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     const [password, setPassword] = useState<string>('');
 
     const [registrationStatus, setRegistrationStatus] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (registrationStatus) {
+            const timer = setTimeout(() => {
+                setRegistrationStatus(null); // Limpa a mensagem após 3 segundos
+            }, 3000);
+
+            return () => {
+                clearTimeout(timer); // Limpa o timer ao desmontar o componente
+            };
+        }
+    }, [registrationStatus]);
 
     async function onSubmit(event: React.SyntheticEvent) {
         event.preventDefault();

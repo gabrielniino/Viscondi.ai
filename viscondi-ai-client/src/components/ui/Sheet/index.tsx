@@ -24,6 +24,9 @@ export function SheetComponent(props: SheetComponentProps) {
   const [password, setPassword] = useState("");
   const [token, setToken] = useState("");
 
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   // Utiliza o useEffect para atualizar o token quando o usuário muda
   useEffect(() => {
     if (user) {
@@ -45,11 +48,17 @@ export function SheetComponent(props: SheetComponentProps) {
 
       if (response.ok) {
         const data = await response.json();
+        setSuccessMessage("Perfil atualizado com sucesso!");
+        setErrorMessage(null);
         console.log(data); // Exibe a resposta do backend
       } else {
+        setSuccessMessage(null);
+        setErrorMessage("Erro ao atualizar o perfil");
         console.error("Erro ao atualizar o perfil");
       }
     } catch (error) {
+      setSuccessMessage(null);
+      setErrorMessage("Erro ao comunicar com o servidor");
       console.error("Erro ao comunicar com o servidor", error);
     }
   };
@@ -89,12 +98,14 @@ export function SheetComponent(props: SheetComponentProps) {
           </div>
         </div>
         <SheetFooter>
-          <SheetClose asChild>
+          {/* <SheetClose asChild> */}
             <Button type="submit" onClick={handleSaveChanges}>
               Save changes
             </Button>
-          </SheetClose>
+          {/* </SheetClose> */}
         </SheetFooter>
+        {successMessage && <p className="text-green-500">{successMessage}</p>}
+        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       </SheetContent>
     </Sheet>
   );
