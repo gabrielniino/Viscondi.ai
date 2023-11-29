@@ -31,9 +31,8 @@ export function DataTable<TData, TValue>({
 
 
     return (
-        <div className="container relative flex flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-3 lg:px-0 h-screen">
-
-            <div className="rounded-md border">
+        <div className=" container relative flex flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-3 lg:px-0 h-screen">
+            <div className="rounded-md border w-80 mx-auto">
                 <Table>
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
@@ -70,7 +69,7 @@ export function DataTable<TData, TValue>({
                         ) : (
                             <TableRow>
                                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    No results.
+                                    Histórico vazio.
                                 </TableCell>
                             </TableRow>
                         )}

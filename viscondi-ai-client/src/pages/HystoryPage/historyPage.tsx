@@ -54,9 +54,9 @@ export function SheetComponentHistory(props: HistorySheetProps) {
         <Sheet open={props.isOpen} onOpenChange={handleSheetClose}>
             <SheetContent>
                 <SheetHeader>
-                    <SheetTitle>Historical Videos</SheetTitle>
+                    <SheetTitle>Histórico</SheetTitle>
                     <SheetDescription>
-                        View your video history here.
+                        Veja o histórico de suas transcrições aqui.
                     </SheetDescription>
                 </SheetHeader>
                 <div className="py-4">
@@ -71,7 +71,6 @@ export function SheetComponentHistory(props: HistorySheetProps) {
                         <Button onClick={handleSheetClose}>Close</Button>
                     </SheetClose>
                 </SheetFooter>
-
             </SheetContent>
         </Sheet>
     );

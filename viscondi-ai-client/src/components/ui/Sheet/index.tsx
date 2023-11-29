@@ -67,15 +67,15 @@ export function SheetComponent(props: SheetComponentProps) {
     <Sheet open={props.isOpen} onOpenChange={props.onSheetOpenChange}>
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Edit profile</SheetTitle>
+          <SheetTitle>Editar Perfil</SheetTitle>
           <SheetDescription>
-            Make changes to your profile here. Click save when you're done.
+            Faça alterações em seu perfil aqui. Clique em salvar quando terminar.
           </SheetDescription>
         </SheetHeader>
         <div className="grid gap-4 py-4">
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
-              Name
+              Nome
             </Label>
             <Input
               id="name"
@@ -86,7 +86,7 @@ export function SheetComponent(props: SheetComponentProps) {
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="password" className="text-right">
-              Password
+              Senha
             </Label>
             <Input
               type="password"
@@ -100,7 +100,7 @@ export function SheetComponent(props: SheetComponentProps) {
         <SheetFooter>
           {/* <SheetClose asChild> */}
             <Button type="submit" onClick={handleSaveChanges}>
-              Save changes
+              Salvar alterações
             </Button>
           {/* </SheetClose> */}
         </SheetFooter>
