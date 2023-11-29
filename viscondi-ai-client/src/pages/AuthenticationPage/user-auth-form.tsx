@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from "@/components/ui/input"
@@ -12,7 +12,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-
     const [registrationStatus, setRegistrationStatus] = useState<string | null>(null);
 
     useEffect(() => {
@@ -35,7 +34,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             setRegistrationStatus('Os campos de email e senha são obrigatórios.');
             return;
         }
-        setName('')
+
+        setName('');
         setIsLoading(true);
 
         // Prepare os dados do usuário para enviar ao servidor
@@ -63,10 +63,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         } finally {
             setIsLoading(false);
         };
-
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 3000);
     }
 
     return (
@@ -122,8 +118,14 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                     </Button>
                 </div>
             </form>
-            {/* Mensagem de "Usuario registrado com sucesso" */}
-            {registrationStatus && <p>{registrationStatus}</p>}
+            {/* Mensagem de sucesso ou erro */}
+            {registrationStatus && (
+                <Message
+                    message={registrationStatus}
+                    onClose={() => setRegistrationStatus(null)}
+                    type={registrationStatus.includes('sucesso') ? 'success' : 'error'}
+                />
+            )}
         </div>
     );
 }
