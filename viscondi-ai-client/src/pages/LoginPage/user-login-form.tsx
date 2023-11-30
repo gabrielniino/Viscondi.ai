@@ -3,64 +3,78 @@ import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from "@/components/ui/input"
 import { useAuth } from '@/hooks/useAuth';
-import { Link } from 'react-router-dom';
+
 import { Message } from '@/components/Message';
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
+interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
+    onLoginSuccess?: (token: string, userId: string) => void;
+}
 
-export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
+export function UserLoginForm({ className, onLoginSuccess, ...props }: UserAuthFormProps) {
+    const [formData, setFormData] = useState({ email: '', password: '' });
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const { login } = useAuth();
 
-    async function onSubmit(event: React.SyntheticEvent) {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData((prevData) => ({ ...prevData, [e.target.id]: e.target.value }));
+    };
+
+    const handleCloseError = () => {
+        setError(null);
+    };
+
+    const handleLoginError = (errorMessage: string) => {
+        setError(errorMessage);
+        setIsLoading(false);
+    };
+
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         setIsLoading(true);
-    
+
         try {
             const response = await fetch('http://localhost:3333/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify(formData),
             });
-    
+
             if (!response.ok) {
-                throw new Error('Credenciais inválidas');
+                const data = await response.json();
+                handleLoginError(data.error || 'Erro de autenticação');
+                return;
             }
-    
+
             const data = await response.json();
-    
+
             if (data.token) {
-                // Se a resposta contém um token, o login foi bem-sucedido
                 login({
                     isAuthenticated: true,
                     token: data.token,
                     id: data.userId,
                 });
-                // Redirecione para a página "/home" aqui
-                console.log('Login bem-sucedido!');
+
+                if (data.isAuthenticated) {
+                    onLoginSuccess?.(data.token, data.userId);
+                } else {
+                    handleLoginError('Credenciais inválidas');
+                }
             } else {
                 throw new Error('Token não recebido do servidor');
             }
         } catch (error) {
             console.error(error);
-            setError('Credenciais inválidas');
+            handleLoginError('Erro de autenticação');
         } finally {
-            setIsLoading(false);
         }
-    }
-
-    const handleCloseError = () => {
-        setError(null);
-      };
+    };
 
     return (
         <div className={`grid gap-6 ${className}`} {...props}>
-            <form onSubmit={onSubmit}>
+            <form onSubmit={handleSubmit}>
                 <div className="grid gap-2">
                     <div className="grid gap-1">
                         <Label htmlFor="email">Email:</Label>
@@ -72,8 +86,8 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
                             autoComplete="email"
                             autoCorrect="off"
                             disabled={isLoading}
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={formData.email}
+                            onChange={handleChange}
                         />
                     </div>
                     <div className="grid gap-1">
@@ -86,11 +100,11 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
                             autoComplete="password"
                             autoCorrect="off"
                             disabled={isLoading}
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={formData.password}
+                            onChange={handleChange}
                         />
                     </div>
-                    <Button disabled={isLoading}>
+                    <Button type="submit" disabled={isLoading}>
                         {isLoading && (
                             <svg
                                 className="mr-2 h-4 w-4 animate-spin"
@@ -107,12 +121,11 @@ export function UserLoginForm({ className, ...props }: UserAuthFormProps) {
                                 />
                             </svg>
                         )}
-                        <Link to="/home">Entrar</Link>
+                        <span>Entrar</span>
                     </Button>
                 </div>
             </form>
-            {/* Mensagem de erro */}
-            {error && <Message message={error} onClose={handleCloseError} type='error'/>}
+            {error && <Message message={error} onClose={handleCloseError} type='error' />}
         </div>
     );
 }

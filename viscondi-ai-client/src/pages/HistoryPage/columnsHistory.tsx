@@ -12,14 +12,14 @@ export type HistoryUserVideo = {
 };
 
 export const columns: ColumnDef<HistoryUserVideo>[] = [
-    // {
-    //     accessorKey: "user_Id",
-    //     header: "User ID",
-    // },
-    // {
-    //     accessorKey: "video_Id",
-    //     header: "Video ID",
-    // },
+    {
+        accessorKey: "user_Id",
+        header: "User ID",
+    },
+    {
+        accessorKey: "video_Id",
+        header: "Video ID",
+    },
     {
         accessorKey: "video.name",
         header: "Video Name",

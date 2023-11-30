@@ -8,6 +8,7 @@ import { createUser } from "./routes/register";
 import { loginUser } from "./routes/login";
 import { editUser } from "./routes/edit-user";
 import { getAllHistoryRoute } from "./routes/getAllHistoryRoute";
+import { getVideoHistoryRoute } from "./routes/getVideoHistoryRoute";
 
 const app = fastify();
 
@@ -24,6 +25,7 @@ app.register(createUser);
 app.register(loginUser);
 app.register(editUser);
 app.register(getAllHistoryRoute);
+app.register(getVideoHistoryRoute);
 app
   .listen({
     port: 3333,
