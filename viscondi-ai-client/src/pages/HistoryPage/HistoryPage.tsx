@@ -4,6 +4,7 @@ import { api } from "@/lib/axios";
 import { DataTable } from './data-table-history';
 import { columns, HistoryUserVideo } from './columnsHistory';
 import { Header } from '../../components/ui/Header';
+import { useNavigate } from 'react-router-dom';
 
 export function HistoryPage() {
     const { user } = useAuth();
